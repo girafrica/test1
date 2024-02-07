@@ -27,17 +27,17 @@ jobs:
           echo "VERSION_MINOR=$(date +'%V')" >> $GITHUB_OUTPUT
         id: week  # this is used on variable path
 
-      - name: print date
-        run: |
-          echo $DEBUG
-        env:
-          YEAR: ${{ steps.year.outputs.year }}
-          WEEK: ${{  steps.week.outputs.week }}
-
       - name: Generate Git Tag
         id: generate_tag
         run: echo "GIT_TAG=`echo $(git describe --tags --abbrev=0)`" >> $GITHUB_ENV
 
+      - name: print date
+        run: |
+          echo $DEBUG
+        env:
+          YEAR: ${{ steps.year.outputs.VERSION_MAJOR }}
+          WEEK: ${{ steps.week.outputs.VERSION_MINOR }}
+          GIT_TAG: ${{ steps.generate_tag.outputs.GIT_TAG }}
 
       - name: Create Git tag for PR
         uses: actions/github-script@v4
@@ -46,6 +46,6 @@ jobs:
             github.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: "refs/tags/v${{ steps.year.outputs.VERSION_MAJOR }}.${{  steps.week.outputs.VERSION_MINOR }}",
+              ref: "refs/tags/v${{ steps.year.outputs.VERSION_MAJOR }}.${{ steps.week.outputs.VERSION_MINOR }}",
               sha: context.sha
             })
