@@ -1,0 +1,19 @@
+name: GitVersion Action
+
+on:
+  push:
+      branches:
+        - main
+
+env:
+        PR_NUMBER: "456"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+          with:
+            fetch-depth: 0
+        - name: Determine Version
+          uses: gittools/actions/gitversion/execute@v0
