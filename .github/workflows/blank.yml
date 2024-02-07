@@ -1,56 +1,40 @@
-# This is a basic workflow to help you get started with Actions
+name: Deploy Application
 
-name: CI
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    if: "contains(github.event.head_commit.message, 'deploy application')"
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+          fetch-depth: '0'
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+    - name: Generate Git Tag
+      id: generate_tag
+      run: |
+        VERSION_PREFIX="v"
+        VERSION_MAJOR_MINOR="1.0"
+        VERSION_PATCH=$(git tag --list "${VERSION_PREFIX}${VERSION_MAJOR_MINOR}.*" --sort=-version:refname | head -n 1 | grep -oE '[0-9]+$')
+        if [ -z "$VERSION_PATCH" ]; then
+          VERSION_PATCH=0
+        else
+          VERSION_PATCH=$((VERSION_PATCH + 1))
+        fi
+        NEW_TAG="${VERSION_PREFIX}${VERSION_MAJOR_MINOR}.${VERSION_PATCH}"
+        echo "Generated new tag: $NEW_TAG"
+        echo "NEW_TAG=$NEW_TAG" >> $GITHUB_ENV
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-      - name: Generate Git Tag
-        id: generate_tag
-        run: |
-          VERSION_PREFIX="v"
-          VERSION_MAJOR_MINOR="1.0"
-          VERSION_PATCH=$(git tag --list "${VERSION_PREFIX}${VERSION_MAJOR_MINOR}.*" --sort=-version:refname | head -n 1 | grep -oE '[0-9]+$')
-          if [ -z "$VERSION_PATCH" ]; then
-            VERSION_PATCH=0
-          else
-            VERSION_PATCH=$((VERSION_PATCH + 1))
-          fi
-          NEW_TAG="${VERSION_PREFIX}${VERSION_MAJOR_MINOR}.${VERSION_PATCH}"
-          echo "Generated new tag: $NEW_TAG"
-          echo "NEW_TAG=$NEW_TAG" >> $GITHUB_ENV
-      - name: Push Git Tag
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "github-actions@users.noreply.github.com"
-          git tag $NEW_TAG
-          git push origin $NEW_TAG
+    - name: Push Git Tag
+      run: |
+        git config user.name "GitHub Actions"
+        git config user.email "github-actions@users.noreply.github.com"
+        git tag $NEW_TAG
+        git push origin $NEW_TAG
+
+    # Add your build, test, and deploy steps here
