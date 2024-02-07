@@ -1,0 +1,25 @@
+name: GitVersion
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+    PR_NUMBER: "456"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Generate Git Tag
+        id: generate_tag
+        run: |
+          VERSION_PREFIX="v"
+          VERSION_MAJOR=$(date +'%Y-%m-%dT%H:%M:%S')
+          VERSION_MINOR="1.0"
