@@ -17,14 +17,19 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: "Set current date as env variable"
+      - name: Get year
         run: |
-          echo "builddate=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
-        id: version  # this is used on variable path
+          echo "year=$(date +'%Y')" >> $GITHUB_OUTPUT
+        id: year  # this is used on variable path
+
+      - name: Get week
+        run: |
+          echo "week=$(date +'%U')" >> $GITHUB_OUTPUT
+        id: week  # this is used on variable path
 
       - name: print date
         run: |
           echo $DEBUG
         env:
-          DEBUG: ${{ steps.version.outputs.builddate }}-DEBUG
-          RELEASE: ${{  steps.version.outputs.builddate }}-RELEASE
+          YEAR: ${{ steps.year.outputs.year }}
+          WEEK: ${{  steps.week.outputs.week }}
