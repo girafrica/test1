@@ -11,6 +11,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0
+        with:
+          versionSpec: '5.x'
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Determine Version
+        id:   gitversion  
+        uses: gittools/actions/gitversion/execute@v0
 
       - name: Create Git tag for PR
         uses: actions/github-script@v4
@@ -19,6 +32,6 @@ jobs:
             github.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: "refs/tags/0.0.0-pr${{env.PR_NUMBER}}",
+              ref: "refs/tags/0.0.0-pr${{ steps.gitversion.outputs.majorMinorPatch }}"",
               sha: context.sha
             })
