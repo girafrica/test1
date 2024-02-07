@@ -11,6 +11,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+        - name: Install GitVersion
+          uses: gittools/actions/gitversion/setup@v0
+          with:
+             versionSpec: '5.x'
         - name: Checkout
           uses: actions/checkout@v2
           with:
