@@ -1,9 +1,13 @@
 name: GitVersion Action
 
+# on:
+#   schedule:
+#     # Default daily scheduled run. Feel free to change this to run when you want it to.
+#     - cron: '*/5 * * * *'
 on:
-  schedule:
-    # Default daily scheduled run. Feel free to change this to run when you want it to.
-    - cron: '*/5 * * * *'
+  push:
+    branches:
+      - main
 
 env:
         PR_NUMBER: "456"
@@ -32,6 +36,6 @@ jobs:
             github.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: "refs/tags/${{ steps.gitversion.outputs.majorMinorPatch }}",
+              ref: "refs/tags/234",
               sha: context.sha
             })
