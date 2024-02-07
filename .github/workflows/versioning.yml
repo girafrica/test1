@@ -17,9 +17,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Generate Git Tag
-        id: generate_tag
+      - name: "Set current date as env variable"
         run: |
-          VERSION_PREFIX="v"
           echo "builddate=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
-          VERSION_MINOR="1.0"
+        id: version  # this is used on variable path
+
+      - name: print date
+        run: |
+          echo $DEBUG
+        env:
+          DEBUG: ${{ steps.version.outputs.builddate }}-DEBUG
+          RELEASE: ${{  steps.version.outputs.builddate }}-RELEASE
