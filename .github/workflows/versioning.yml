@@ -24,7 +24,7 @@ jobs:
 
       - name: Get week
         run: |
-          echo "week=$(date +'%U')" >> $GITHUB_OUTPUT
+          echo "week=$(date +'%V')" >> $GITHUB_OUTPUT
         id: week  # this is used on variable path
 
       - name: print date
