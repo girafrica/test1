@@ -29,7 +29,7 @@ jobs:
 
       - name: Generate Git Tag
         id: generate_tag
-        run: echo "GIT_TAG=`echo $(git describe --tags --abbrev=0)`" >> $GITHUB_ENV
+        run: echo "GIT_TAG=$(git tag --list)" >> $GITHUB_ENV
 
       - name: print date
         run: |
