@@ -33,3 +33,14 @@ jobs:
         env:
           YEAR: ${{ steps.year.outputs.year }}
           WEEK: ${{  steps.week.outputs.week }}
+
+      - name: Create Git tag for PR
+        uses: actions/github-script@v4
+        with:
+          script: |
+            github.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: "refs/tags/v${{ steps.year.outputs.year }}.${{  steps.week.outputs.week }}",
+              sha: context.sha
+            })
