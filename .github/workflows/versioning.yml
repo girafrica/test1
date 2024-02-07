@@ -29,7 +29,7 @@ jobs:
 
       - name: Generate Git Tag
         id: generate_tag
-        run: echo "GIT_TAG=$(git tag --list "v2024.*")" >> $GITHUB_ENV
+        run: echo "GIT_TAG=$(git tag --list "v2024.*")" >> $GITHUB_OUTPUT
 
       - name: print date
         run: |
