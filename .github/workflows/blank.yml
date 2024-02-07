@@ -1,9 +1,10 @@
 name: Deploy Application
 
 on:
-  push:
-    branches:
-      - main
+  schedule:
+    # Default daily scheduled run. Feel free to change this to run when you want it to.
+    - cron: '*/5 * * * *'
+
 env:
         PR_NUMBER: "456"
 jobs:
