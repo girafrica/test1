@@ -32,6 +32,6 @@ jobs:
             github.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: "refs/tags/0.0.0-pr${{ steps.gitversion.outputs.majorMinorPatch }}",
+              ref: "refs/tags/${{ steps.gitversion.outputs.majorMinorPatch }}",
               sha: context.sha
             })
