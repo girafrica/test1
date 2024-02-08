@@ -8,6 +8,14 @@ pipeline {
                 checkout scm
             }
         }
+        
+        stage('Checkout2') {
+            steps {
+                script {
+                    sh("git fetch --all --tags")
+                }            
+            }
+        }
 
         stage('Create version') {
             steps {
