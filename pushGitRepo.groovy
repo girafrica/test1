@@ -9,7 +9,7 @@ pipeline {
                     def date = new Date()
                     sdf = new SimpleDateFormat("dd-MM-yyyy")
                     println("Date is: "+sdf.format(date))
-                    def TAG="tag-${sdf.format(date)}"
+                    def TAG="${sdf.format(date)}"
                     echo "TAG is : ${TAG}"
                     withCredentials([usernamePassword(credentialsId: 'github-app', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                     sh("git tag -a ${TAG} -m '${TAG}'")
