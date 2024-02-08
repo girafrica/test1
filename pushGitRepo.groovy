@@ -1,26 +1,18 @@
 pipeline {
     agent any
     stages {
-        stage('Build Image') {
+        stage('Create tag') {
             steps {
+                def date = new Date()
+                sdf = new SimpleDateFormat("dd-MM-yyyy")
+                println("Date is: "+sdf.format(date))
+                def TAG="tag-${sdf.format(date)}"
+                echo "TAG is : ${TAG}"
                 withCredentials([usernamePassword(credentialsId: 'github-app', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                sh("git tag -a some_tag -m 'Jenkins'")
+                sh("git tag -a ${TAG} -m '${TAG}'")
                 sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/tag --tags')              
-          }
-            }
-        }
-
-        stage('Git Push To Origin') {
-
-            steps {
-        
-                withCredentials([usernamePassword(credentialsId: your_credentials, passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                
-
-                    sh "git tag 555"
-                    sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/tag 555"
                 }
             }
-    }
+        }
     }
 }
