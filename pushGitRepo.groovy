@@ -13,7 +13,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'github-app', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                    sh('git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/tag --tags --force')              
+                    sh('git fetch https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/tag  --prune --prune-tags')              
                     }                
                 }            
             }
