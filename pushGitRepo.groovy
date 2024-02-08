@@ -37,10 +37,10 @@ pipeline {
                   int x = 1;
   
                   lastTag = sh script: """git tag --list ${version}* --sort=-version:refname | sort -r | head -1 | grep -oE '[0-9]+\044'""".trim(), returnStdout: true
-                  int lt = lastTag.trim()  // the .trim() is necessary
+                  lt = lastTag.trim()  // the .trim() is necessary
                   echo "lastTag: " + lt
 
-                  newtag = lt + x
+                  newtag = lt.toInteger() + x
 
                   echo newtag
                 }
