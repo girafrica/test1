@@ -43,7 +43,7 @@ pipeline {
 
                   newtag = lt + x
 
-                  echo newtag
+                  echo newtag.toString()
                 }
             }
         }  
