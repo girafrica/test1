@@ -34,13 +34,13 @@ pipeline {
         stage('List tags') {
             steps {
                 script {
-                  def x = 1;
+                  int x = 1;
   
-                  lastTag = sh script: """git tag --list ${version}* --sort=-version:refname | sort -r | head -1 | grep -oE '[0-9]+\044'""".trim(), returnStdout: true
+                  int lastTag = sh script: """git tag --list ${version}* --sort=-version:refname | sort -r | head -1 | grep -oE '[0-9]+\044'""".trim(), returnStdout: true
                   lt = lastTag.trim()  // the .trim() is necessary
                   echo "lastTag: " + lt
 
-                  newtag = Float.lt + Float.x
+                  newtag = lt + x
 
                   echo newtag
                 }
