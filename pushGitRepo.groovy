@@ -15,6 +15,15 @@ pipeline {
             }
         }    
 
+        stage('List tags') {
+            steps {
+                script {
+                  lastTag = sh("git tag --list "${version}.*" --sort=-version:refname | head -n 1 | grep -oE '[0-9]+$")
+                  echo "lastTag: " + lastTag
+                }
+            }
+        }  
+
         stage('Create tag') {
             steps {
                 script {
