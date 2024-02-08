@@ -35,7 +35,8 @@ pipeline {
             steps {
                 script {
                   lastTag = sh("git tag --list ${version}* --sort=-version:refname | sort -r | head -1")
-                  echo "lastTag: " + lastTag
+                  lt = lastTag.trim()  // the .trim() is necessary
+                  echo "lastTag: " + lt
                 }
             }
         }  
