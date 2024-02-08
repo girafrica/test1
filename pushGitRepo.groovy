@@ -40,7 +40,7 @@ pipeline {
                   lt = lastTag.trim()  // the .trim() is necessary
                   echo "lastTag: " + lt
 
-                  newtag = lt + x
+                  newtag = Float.lt + Float.x
 
                   echo newtag
                 }
