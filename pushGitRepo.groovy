@@ -8,11 +8,13 @@ pipeline {
                 checkout scm
             }
         }
-        
+
         stage('Checkout2') {
             steps {
                 script {
-                    sh("git fetch --all --tags")
+                    withCredentials([usernamePassword(credentialsId: 'github-app', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    sh('git fetch https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/tag --tags --force')              
+                    }                
                 }            
             }
         }
