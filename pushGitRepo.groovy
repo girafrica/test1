@@ -7,7 +7,7 @@ pipeline {
             steps {
                 script {
                     currentDateTime = sh script: """
-                        date +"%Y.%V"
+                        date +"v%Y.%V"
                         """.trim(), returnStdout: true
                     version = currentDateTime.trim()  // the .trim() is necessary
                     echo "version: " + version
