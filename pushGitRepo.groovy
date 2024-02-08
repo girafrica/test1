@@ -40,7 +40,9 @@ pipeline {
                   lt = lastTag.trim()  // the .trim() is necessary
                   echo "lastTag: " + lt
 
-                  echo newtag = lt + x
+                  newtag = lt + x
+
+                  echo newtag
                 }
             }
         }  
