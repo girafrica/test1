@@ -1,6 +1,6 @@
 pipeline {
     agent none
-    
+    stages {
         stage('Build Image') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'github-app', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
@@ -9,4 +9,5 @@ pipeline {
           }
             }
         }
+    }
 }
