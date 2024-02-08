@@ -3,6 +3,12 @@ import java.text.SimpleDateFormat
 pipeline {
     agent any
     stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
         stage('Create version') {
             steps {
                 script {
