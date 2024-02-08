@@ -13,7 +13,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'github-app', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                    sh('git pull  https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/tag --tags --force')              
+                    sh('git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/tag --tags --force')              
                     }                
                 }            
             }
@@ -34,7 +34,7 @@ pipeline {
         stage('List tags') {
             steps {
                 script {
-                  lastTag = sh script: """git tag --list ${version}* --sort=-version:refname | sort -r | head -1""".trim(), returnStdout: true
+                  lastTag = sh script: """git tag --list ${version}* --sort=-version:refname | sort -r | head -1 | grep -oE '[0-9]+$'""".trim(), returnStdout: true
                   lt = lastTag.trim()  // the .trim() is necessary
                   echo "lastTag: " + lt
                 }
