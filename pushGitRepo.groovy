@@ -34,8 +34,8 @@ pipeline {
         stage('List tags') {
             steps {
                 script {
-                  lastTag = sh("git tag --list ${version}* --sort=-version:refname | grep -o 'v.*' | sort -r | head -1")
-                  echo "lastTag: " + lastTag
+                  lastTag = sh("git tag --list ${version}* --sort=-version:refname | sort -r | head -1")
+                  echo "lastTag: " + lastTag.trim()
                 }
             }
         }  
