@@ -40,7 +40,7 @@ pipeline {
                   lt = lastTag.trim()  // the .trim() is necessary
                   echo "lastTag: " + lt
 
-                  newtag = lt.toInteger() + x
+                  newtag = "lt".toInteger() + x
 
                   echo newtag
                 }
