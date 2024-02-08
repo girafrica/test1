@@ -1,4 +1,5 @@
 pipeline {
+    agent any
     stages {
         stage('Build Image') {
             steps {
@@ -11,15 +12,15 @@ pipeline {
 
         stage('Git Push To Origin') {
 
-        steps {
-     
-            withCredentials([usernamePassword(credentialsId: your_credentials, passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-              
+            steps {
+        
+                withCredentials([usernamePassword(credentialsId: your_credentials, passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                
 
-                sh "git tag 555"
-                sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/tag 555"
+                    sh "git tag 555"
+                    sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/tag 555"
+                }
             }
-        }
     }
     }
 }
