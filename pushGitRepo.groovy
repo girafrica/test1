@@ -3,16 +3,23 @@ import java.text.SimpleDateFormat
 pipeline {
     agent any
     stages {
+        stage('Create version') {
+            steps {
+                script {
+                    currentDateTime = sh script: """
+                        date +"-%Y%m%d_%H%M"
+                        """.trim(), returnStdout: true
+                    version = currentDateTime.trim()  // the .trim() is necessary
+                    echo "version: " + version
+                }
+            }
+        }    
+
         stage('Create tag') {
             steps {
                 script {
-                    def date = new Date()
-                    sdf = new SimpleDateFormat("dd-MM-yyyy")
-                    println("Date is: "+sdf.format(date))
-                    def TAG="${sdf.format(date)}"
-                    echo "TAG is : ${TAG}"
                     withCredentials([usernamePassword(credentialsId: 'github-app', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                    sh("git tag -a ${TAG} -m '${TAG}'")
+                    sh("git tag -a ${version} -m '${version}'")
                     sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/tag --tags')              
                     }
                 }
