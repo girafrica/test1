@@ -18,7 +18,7 @@ pipeline {
         stage('List tags') {
             steps {
                 script {
-                  lastTag = sh("git tag --list ${version}.* --sort=-version:refname | head -n 1 | grep -oE 'v.*")
+                  lastTag = sh("git tag --list ${version}.* --sort=-version:refname | head -n 1 | grep -oE 'v.*'")
                   echo "lastTag: " + lastTag
                 }
             }
