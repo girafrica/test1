@@ -1,4 +1,6 @@
 import java.text.SimpleDateFormat
+library 'shared'
+import alex.common.ApplicationSettings
 
 pipeline {
     agent any
@@ -12,8 +14,7 @@ pipeline {
         stage('Checkout2') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'github-app', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                    sh('git fetch https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/tag  --prune --prune-tags')              
+                    checkoutCode()              
                     }                
                 }            
             }
