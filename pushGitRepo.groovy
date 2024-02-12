@@ -13,6 +13,7 @@ pipeline {
         stage('Checkout2') {
             steps {
                 script {
+                    setupEnvironment()
                     checkoutCode()              
                     }                
                 }            
