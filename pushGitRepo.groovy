@@ -1,6 +1,5 @@
 import java.text.SimpleDateFormat
 library 'shared'
-import alex.common.ApplicationSettings
 
 pipeline {
     agent any
@@ -56,18 +55,6 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'github-app', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                     sh("git tag -f -a ${version}.${newtag} -m '${version}.${newtag}'")
                     sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/tag --tags -f')
-
-                            if (env.APP_NAME != null) {
-                            def applicationConfig = ApplicationSettings.configs[env.APP_NAME]
-
-                            if (!applicationConfig) {
-                                throw new Exception("No configs found for application: ${env.APP_NAME}")
-                            }
-
-                            applicationConfig.each { entry ->
-                                setEnvVar(entry.key, entry.value)
-                            }
-                        }
                     }
                 }
             }
