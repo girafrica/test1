@@ -3,6 +3,9 @@ library 'shared'
 
 pipeline {
     agent any
+    environment {
+        CONFIG = 'cmp-stg'
+    }
     stages {
         stage('Checkout') {
             steps {
