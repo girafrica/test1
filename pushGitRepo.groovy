@@ -18,7 +18,6 @@ pipeline {
                     }                
                 }            
             }
-        }
 
         stage('Create version') {
             steps {
