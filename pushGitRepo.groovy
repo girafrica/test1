@@ -39,8 +39,8 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'github-app', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         dir ('savetag'){    
                             sh (' git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags ')
-                            sh (' ls -Art | tail -n 1 ')
-                            lastTag = sh script: """ls -Art | tail -n 1""".trim(), returnStdout: true
+                            sh (' ls -t | head -n1 ')
+                            lastTag = sh script: """ls -t | head -n1""".trim(), returnStdout: true
                             echo "lastTag: " + lt
                         }
                     }
