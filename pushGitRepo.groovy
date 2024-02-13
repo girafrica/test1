@@ -50,13 +50,13 @@ pipeline {
             }
         }  
 
-        stage('Create tag') {
-            steps {
-                script {
-                    //createTag(version, newtag)
-                }
-            }
-        }
+        // stage('Create tag') {
+        //     steps {
+        //         script {
+        //             createTag(version, newtag)
+        //         }
+        //     }
+        // }
 
         stage('Save tag') {
             steps {
