@@ -67,6 +67,7 @@ pipeline {
                             //sh (' git config --global pull.rebase false ')
                             //sh (' git fetch https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags ')
                             sh (' git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags main --allow-unrelated-histories')
+                            sh (' git merge origin origin/main ')
                             def readContent = "${version}.sbt"
                             writeFile file: "${version}.sbt", text: readContent+"\r\nversion := 1.0.${env.BUILD_ID}"
                             sh (" git add -A")
