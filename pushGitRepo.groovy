@@ -62,11 +62,11 @@ pipeline {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'github-app', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                     sh (' git fetch https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags ')
-                    def readContent = '${newtag}.sbt'
-                    writeFile file: '${newtag}.sbt', text: readContent+"\r\nversion := 1.0.${env.BUILD_ID}"
+                    def readContent = "${newtag}.sbt"
+                    writeFile file: "${newtag}.sbt", text: readContent+"\r\nversion := 1.0.${env.BUILD_ID}"
                     }
-
-                    sh ('git commit -am "Updated version number"')
+                    sh (" git add ${newtag}.sbt")
+                    sh (' git commit -am "Updated version number"')
                     sh (' git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags ')
                 }
             }
