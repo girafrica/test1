@@ -64,7 +64,7 @@ pipeline {
                     sh (' ls -l ')
                         dir ('foo'){
                             sh (' ls -l ')                    
-                            sh (' git config --global pull.rebase false ')
+                            //sh (' git config --global pull.rebase false ')
                             //sh (' git fetch https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags ')
                             sh (' git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags ')
                             def readContent = "${version}.sbt"
