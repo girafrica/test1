@@ -30,24 +30,26 @@ pipeline {
             }
         }    
 
-        // stage('List tags') {
-        //     steps {
-        //         script {
-        //           int x = 1;
+        stage('List tags') {
+            steps {
+                script {
+                    int x = 1;
   
-        //           //lastTag = sh script: """git tag --list ${version}* --sort=-version:refname | head -1 | grep -oE '[0-9]+\044'""".trim(), returnStdout: true
-        //           lastTag = sh script: """git tag --sort=-version:refname | head -1 | grep -oE '[0-9]+\044'""".trim(), returnStdout: true
+                    //lastTag = sh script: """git tag --sort=-version:refname | head -1 | grep -oE '[0-9]+\044'""".trim(), returnStdout: true
+                
+                    sh (' git fetch https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags ')
+                    sh (' ls -l ')
 
-        //           lt = lastTag.trim()  // the .trim() is necessary
-        //           echo "lastTag: " + lt
-        //           int lt = lt.toInteger()
+                    // lt = lastTag.trim()  // the .trim() is necessary
+                    // echo "lastTag: " + lt
+                    // int lt = lt.toInteger()
 
-        //           newtag = lt + x
+                    // newtag = lt + x
 
-        //           echo newtag.toString()
-        //         }
-        //     }
-        // }  
+                    // echo newtag.toString()
+                }
+            }
+        }  
 
         // stage('Create tag') {
         //     steps {
@@ -75,10 +77,10 @@ pipeline {
                         //     sh (' git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags HEAD:main')
                         // }
 
-                        dir ('foo'){
+                        dir ('savetag'){
                             cloneToLocation("https://github.com/girafrica/release-tags", 'github-app')
-                            def readContent = "${version}.sbt"
-                            writeFile file: "${version}.sbt", text: readContent+"\r\nversion := 1.0.${env.BUILD_ID}"
+                            def readContent = "${version}"
+                            writeFile file: "${version}", text: readContent+"\r\nversion := 1.0.${env.BUILD_ID}"
                             sh (" git add -A")   
                             sh (' git commit -am "Updated version number"')                      
                             sh (' ls -l ')
