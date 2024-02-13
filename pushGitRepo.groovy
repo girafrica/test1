@@ -65,6 +65,9 @@ pipeline {
                     def readContent = '${newtag}.sbt'
                     writeFile file: '${newtag}.sbt', text: readContent+"\r\nversion := 1.0.${env.BUILD_ID}"
                     }
+
+                    sh ('git commit -am "Updated version number"')
+                    sh (' git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags ')
                 }
             }
         }
