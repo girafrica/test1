@@ -67,10 +67,10 @@ pipeline {
                             sh (' git config --global pull.rebase false ')
                             sh (' git fetch https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags ')
                             sh ('git diff')
-                            sh (' git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags --allow-unrelated-histories')
+                            sh (' git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags --rebase')
                             def readContent = "${version}.sbt"
                             writeFile file: "${version}.sbt", text: readContent+"\r\nversion := 1.0.${env.BUILD_ID}"
-                            sh (" git add ${version}.sbt")
+                            sh (" git add -A")
                             sh (' git commit -am "Updated version number"')
                             sh (' git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags HEAD:main')
                         }
