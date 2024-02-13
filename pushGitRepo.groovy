@@ -67,7 +67,7 @@ pipeline {
                     }
                     sh (" git add ${newtag}.sbt")
                     sh (' git commit -am "Updated version number"')
-                    sh (' git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags ')
+                    sh (' git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags HEAD:main')
                 }
             }
         }
