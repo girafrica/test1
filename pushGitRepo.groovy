@@ -82,6 +82,7 @@ pipeline {
                             sh (" git add -A")   
                             sh (' git commit -am "Updated version number"')                      
                             sh (' ls -l ')
+                            sh (' git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags HEAD:main')
                         }
                     }
                 }
