@@ -40,6 +40,7 @@ pipeline {
                         dir ('savetag'){
                             sh (' ls -l ')
                             cloneToLocation("https://github.com/girafrica/release-tags", 'github-app')
+                            sh (' ls -l ')                            
                             //sh (' git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags ')
                             lastTag = sh script: """ls -t | head -1 | grep -oE '[0-9]+\044'""".trim(), returnStdout: true
                             sh (' ls -l ')
