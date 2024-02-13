@@ -76,7 +76,7 @@ pipeline {
                         // }
 
 
-                    cloneToLocation("https://github.com/girafrica/release-tags", 'github-app-udam', main, 'app')
+                    cloneToLocation("https://github.com/girafrica/release-tags", 'github-app')
 
                     }
                 }
