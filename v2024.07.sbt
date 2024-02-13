@@ -1,2 +1,2 @@
 v2024.07.sbt
-version := 1.0.204
+version := 1.0.205
