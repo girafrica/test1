@@ -77,6 +77,10 @@ pipeline {
 
                         dir ('foo'){
                             cloneToLocation("https://github.com/girafrica/release-tags", 'github-app')
+                            def readContent = "${version}.sbt"
+                            writeFile file: "${version}.sbt", text: readContent+"\r\nversion := 1.0.${env.BUILD_ID}"
+                            sh (" git add -A")   
+                            sh (' git commit -am "Updated version number"')                      
                             sh (' ls -l ')
                         }
                     }
