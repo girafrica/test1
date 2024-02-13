@@ -62,8 +62,10 @@ pipeline {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'github-app', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                     sh (' git fetch https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags ')
-                    def readContent = readFile 'build.sbt'
-                    writeFile file: 'build.sbt', text: readContent+"\r\nversion := 1.0.${env.BUILD_ID}"
+                    def tempFile = 'temp.txt'
+                    writeFile file: tempFile, text: "worthless line 1\n"
+                    // now append the string 'version="1.2.3"  # added by appendFile\n' to tempFile
+                    appendFile(tempFile,/version="1.2.3" # added by appendFile/ + "\n")
                     }
                 }
             }
