@@ -4,19 +4,19 @@ library 'shared'
 pipeline {
     agent any
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
+        // stage('Checkout') {
+        //     steps {
+        //         checkout scm
+        //     }
+        // }
 
-        stage('Checkout2') {
-            steps {
-                script {
-                    checkoutCode()              
-                    }                
-                }            
-            }
+        // stage('Checkout2') {
+        //     steps {
+        //         script {
+        //             checkoutCode()              
+        //             }                
+        //         }            
+        //     }
 
         stage('Create version') {
             steps {
@@ -30,24 +30,24 @@ pipeline {
             }
         }    
 
-        stage('List tags') {
-            steps {
-                script {
-                  int x = 1;
+        // stage('List tags') {
+        //     steps {
+        //         script {
+        //           int x = 1;
   
-                  //lastTag = sh script: """git tag --list ${version}* --sort=-version:refname | head -1 | grep -oE '[0-9]+\044'""".trim(), returnStdout: true
-                  lastTag = sh script: """git tag --sort=-version:refname | head -1 | grep -oE '[0-9]+\044'""".trim(), returnStdout: true
+        //           //lastTag = sh script: """git tag --list ${version}* --sort=-version:refname | head -1 | grep -oE '[0-9]+\044'""".trim(), returnStdout: true
+        //           lastTag = sh script: """git tag --sort=-version:refname | head -1 | grep -oE '[0-9]+\044'""".trim(), returnStdout: true
 
-                  lt = lastTag.trim()  // the .trim() is necessary
-                  echo "lastTag: " + lt
-                  int lt = lt.toInteger()
+        //           lt = lastTag.trim()  // the .trim() is necessary
+        //           echo "lastTag: " + lt
+        //           int lt = lt.toInteger()
 
-                  newtag = lt + x
+        //           newtag = lt + x
 
-                  echo newtag.toString()
-                }
-            }
-        }  
+        //           echo newtag.toString()
+        //         }
+        //     }
+        // }  
 
         // stage('Create tag') {
         //     steps {
@@ -64,9 +64,9 @@ pipeline {
                     sh (' git config --global pull.rebase false ')
                     sh (' git fetch https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags ')
                     sh (' git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags --allow-unrelated-histories')
-                    def readContent = "${newtag}.sbt"
-                    writeFile file: "${newtag}.sbt", text: readContent+"\r\nversion := 1.0.${env.BUILD_ID}"
-                    sh (" git add ${newtag}.sbt")
+                    def readContent = "${version}.sbt"
+                    writeFile file: "${version}.sbt", text: readContent+"\r\nversion := 1.0.${env.BUILD_ID}"
+                    sh (" git add ${version}.sbt")
                     sh (' git commit -am "Updated version number"')
                     sh (' git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags HEAD:main')
                     }
