@@ -62,18 +62,22 @@ pipeline {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'github-app', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                     sh (' ls -l ')
-                        dir ('foo'){
-                            sh (' ls -l ')                    
-                            //sh (' git config --global pull.rebase false ')
-                            sh (' git fetch https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags ')
-                            //sh (' git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags main --allow-unrelated-histories')
-                            def readContent = "${version}.sbt"
-                            writeFile file: "${version}.sbt", text: readContent+"\r\nversion := 1.0.${env.BUILD_ID}"
-                            sh (" git add -A")
-                            sh (' git commit -am "Updated version number"')
-                            sh (' git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags main --allow-unrelated-histories')
-                            sh (' git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags HEAD:main')
-                        }
+                        // dir ('foo'){
+                        //     sh (' ls -l ')                    
+                        //     //sh (' git config --global pull.rebase false ')
+                        //     sh (' git fetch https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags ')
+                        //     //sh (' git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags main --allow-unrelated-histories')
+                        //     def readContent = "${version}.sbt"
+                        //     writeFile file: "${version}.sbt", text: readContent+"\r\nversion := 1.0.${env.BUILD_ID}"
+                        //     sh (" git add -A")
+                        //     sh (' git commit -am "Updated version number"')
+                        //     sh (' git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags main --allow-unrelated-histories')
+                        //     sh (' git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags HEAD:main')
+                        // }
+
+
+                    cloneToLocation("https://github.com/girafrica/release-tags", 'github-app-udam', main, 'app')
+
                     }
                 }
             }
