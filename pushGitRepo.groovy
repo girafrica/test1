@@ -40,6 +40,7 @@ pipeline {
                         dir ('savetag'){    
                             sh (' git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags ')
                             lastTag = sh script: """ls -t | head -1 | grep -oE '[0-9]+\044'""".trim(), returnStdout: true
+                            sh (' ls -l ')
                         }
                     }
                     lt = lastTag.trim()  // the .trim() is necessary
@@ -67,7 +68,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'github-app', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                     sh (' ls -l ')
                         // dir ('foo'){
-                        //     sh (' ls -l ')                    
+                        //     sh (' ls -l ')
                         //     //sh (' git config --global pull.rebase false ')
                         //     sh (' git fetch https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags ')
                         //     //sh (' git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags main --allow-unrelated-histories')
