@@ -37,9 +37,10 @@ pipeline {
   
                     //lastTag = sh script: """git tag --sort=-version:refname | head -1 | grep -oE '[0-9]+\044'""".trim(), returnStdout: true
                     withCredentials([usernamePassword(credentialsId: 'github-app', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-
-                        sh (' git fetch https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags ')
-                        sh (' ls -l ')
+                        dir ('savetag'){    
+                            sh (' git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags ')
+                            sh (' ls -l ')
+                        }
                     }
                     // lt = lastTag.trim()  // the .trim() is necessary
                     // echo "lastTag: " + lt
