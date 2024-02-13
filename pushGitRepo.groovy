@@ -3,14 +3,10 @@ library 'shared'
 
 pipeline {
     agent any
-    environment {
-        CONFIG = 'cmp-stg'
-    }
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
-                echo("Foo: ${env.CONFIG}")
             }
         }
 
@@ -57,7 +53,7 @@ pipeline {
         stage('Create tag') {
             steps {
                 script {
-                    createTag(version, newtag)
+                    //createTag(version, newtag)
                 }
             }
         }
