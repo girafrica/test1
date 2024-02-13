@@ -61,10 +61,10 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'github-app', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                    sh (' ls')
-                    sh (' mkdir release-tags ')
+                    sh (' ls -l ')
+                    dir ('foo')
                     sh (' cd release-tags ')
-                    sh (' ls')                    
+                    sh (' ls -l ')                    
                     sh (' git config --global pull.rebase false ')
                     sh (' git fetch https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags ')
                     sh (' git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags --allow-unrelated-histories')
