@@ -37,7 +37,7 @@ pipeline {
   
                     //lastTag = sh script: """git tag --sort=-version:refname | head -1 | grep -oE '[0-9]+\044'""".trim(), returnStdout: true
                     withCredentials([usernamePassword(credentialsId: 'github-app', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                        dir ('listtag'){
+                        dir ('savetag'){
                             sh (' ls -l ')
                             cloneToLocation("https://github.com/girafrica/release-tags", 'github-app')
                             //sh (' git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags ')
@@ -83,7 +83,7 @@ pipeline {
                         //     sh (' git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags HEAD:main')
                         // }
 
-                        dir ('savetag'){
+                        dir ('savetag2'){
                             cloneToLocation("https://github.com/girafrica/release-tags", 'github-app')
                             //def readContent = "${version}.${newtag}"
                             writeFile file: "${version}.${newtag}"
