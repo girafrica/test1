@@ -63,7 +63,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'github-app', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                     sh (' git config --global pull.rebase false ')
                     sh (' git fetch https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags ')
-                    sh (' git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags')
+                    sh (' git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags --allow-unrelated-histories')
                     def readContent = "${newtag}.sbt"
                     writeFile file: "${newtag}.sbt", text: readContent+"\r\nversion := 1.0.${env.BUILD_ID}"
                     sh (" git add ${newtag}.sbt")
