@@ -75,9 +75,10 @@ pipeline {
                         //     sh (' git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags HEAD:main')
                         // }
 
-
-                    cloneToLocation("https://github.com/girafrica/release-tags", 'github-app')
-
+                        dir ('foo'){
+                            cloneToLocation("https://github.com/girafrica/release-tags", 'github-app')
+                            sh (' ls -l ')
+                        }
                     }
                 }
             }
