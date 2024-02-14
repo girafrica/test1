@@ -12,8 +12,9 @@ pipeline {
         skipDefaultCheckout()
     }
 
-     stages {
-    stage('show available date') {
+    
+    stages {  
+        stage('show available date') {
       steps {
         sh '''
         echo $JENKINS_HOME
@@ -38,10 +39,7 @@ pipeline {
               parameters: [ choice(name: 'CHOICES', choices: choiceArray, description: 'Please Select One') ]
             }
         }
-    }
- }
-    stages {  
-
+    }    
         // stage('List tags') {
         //     steps {
         //         script {
