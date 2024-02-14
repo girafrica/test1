@@ -18,9 +18,9 @@ pipeline {
       steps {
         sh '''
         echo $JENKINS_HOME
-        echo "2023" > $JENKINS_HOME/scripts/lista.txt
+        echo "2023" > $JENKINS_HOME/workspace/tag/test/lista.txt
         echo "Show available date"
-        cat $JENKINS_HOME/scripts/lista.txt
+        cat $JENKINS_HOME/workspace/tag/test/lista.txt
         '''
       }
     }
