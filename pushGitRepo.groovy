@@ -27,7 +27,7 @@ pipeline {
    stage('Restore') {
         steps {
             script {
-              def folders = sh(returnStdout: true, script: "cat $JENKINS_HOME/scripts/lista.txt")    
+              def folders = sh(returnStdout: true, script: "cat $JENKINS_HOME/workspace/tag/test/lista.txt")    
               //load the array using the file content (lista.txt)
                 folders.split().each {
                     choiceArray << it
