@@ -67,7 +67,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'github-app', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                    sh (' ls -l ')
+                        sh (' ls -l ')
                         // dir ('foo'){
                         //     sh (' ls -l ')
                         //     //sh (' git config --global pull.rebase false ')
@@ -81,15 +81,13 @@ pipeline {
                         //     sh (' git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags HEAD:main')
                         // }
 
-                        dir ('savetag'){
-                            cloneToLocation("https://github.com/girafrica/release-tags", 'github-app')
-                            //def readContent = "${version}.${newtag}"
-                            writeFile file: "${version}.${env.BUILD_ID}"
-                            sh (" git add -A")
-                            sh (" git commit -am 'Updated version number to ${version}.${env.BUILD_ID}'")
-                            sh (' ls -l ')
-                            sh (' git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags HEAD:main')
-                        }
+                        cloneToLocation("https://github.com/girafrica/release-tags", 'github-app')
+                        //def readContent = "${version}.${newtag}"
+                        writeFile file: "${version}.${env.BUILD_ID}"
+                        sh (" git add -A")
+                        sh (" git commit -am 'Updated version number to ${version}.${env.BUILD_ID}'")
+                        sh (' ls -l ')
+                        sh (' git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags HEAD:main')
                     }
                 }
             }
