@@ -87,8 +87,8 @@ pipeline {
                         tag = newtag.toString()
 
                         echo tag 
-                        
-                        writeFile file: "${tag}"
+
+                        writeFile file: "${version}"
                         // sh (" git add -A")
                         // sh (" git commit -am 'Updated version number to ${version}.${env.BUILD_ID}'")
                         // sh (' ls -l ')
