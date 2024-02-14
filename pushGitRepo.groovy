@@ -30,35 +30,35 @@ pipeline {
             }
         }    
 
-        stage('List tags') {
-            steps {
-                script {
-                    int x = 1;
+        // stage('List tags') {
+        //     steps {
+        //         script {
+        //             int x = 1;
   
-                    //lastTag = sh script: """git tag --sort=-version:refname | head -1 | grep -oE '[0-9]+\044'""".trim(), returnStdout: true
-                    //withCredentials([usernamePassword(credentialsId: 'github-app', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                        dir ('savetag'){    
-                            cloneToLocation("https://github.com/girafrica/release-tags", 'github-app')
-                            //sh (' git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags ')
-                            lastTag = sh script: """ls -t | head -1 | grep -oE '[0-9]+\044'""".trim(), returnStdout: true
-                            sh (' ls -l ')
-                        }
-                    //}
-                    lt = lastTag.trim()  // the .trim() is necessary
-                    echo "lastTag: " + lt
-                    int lt = lt.toInteger()
+        //             //lastTag = sh script: """git tag --sort=-version:refname | head -1 | grep -oE '[0-9]+\044'""".trim(), returnStdout: true
+        //             //withCredentials([usernamePassword(credentialsId: 'github-app', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+        //                 dir ('savetag'){    
+        //                     cloneToLocation("https://github.com/girafrica/release-tags", 'github-app')
+        //                     //sh (' git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags ')
+        //                     lastTag = sh script: """ls -t | head -1 | grep -oE '[0-9]+\044'""".trim(), returnStdout: true
+        //                     sh (' ls -l ')
+        //                 }
+        //             //}
+        //             lt = lastTag.trim()  // the .trim() is necessary
+        //             echo "lastTag: " + lt
+        //             int lt = lt.toInteger()
 
-                    newtag = "${env.BUILD_ID}"
+        //             newtag = "${env.BUILD_ID}"
 
-                    echo newtag.toString()
-                }
-            }
-        }  
+        //             echo newtag.toString()
+        //         }
+        //     }
+        // }
 
         stage('Create tag') {
             steps {
                 script {
-                    createTag(version, newtag)
+                    createTag(version)
                 }
             }
         }
