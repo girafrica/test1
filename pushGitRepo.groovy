@@ -66,7 +66,7 @@ pipeline {
         stage('Save tag') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'github-app', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    //withCredentials([usernamePassword(credentialsId: 'github-app', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         sh (' ls -l ')
                         // dir ('foo'){
                         //     sh (' ls -l ')
@@ -88,7 +88,7 @@ pipeline {
                         sh (" git commit -am 'Updated version number to ${version}.${env.BUILD_ID}'")
                         sh (' ls -l ')
                         sh (' git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags HEAD:main')
-                    }
+                    //}
                 }
             }
         }
