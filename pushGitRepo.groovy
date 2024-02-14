@@ -88,7 +88,7 @@ pipeline {
 
                         // echo tag 
 
-                        writeFile file: "${version}.${env.BUILD_ID}", text: "\r\n${version}.${env.BUILD_ID}"
+                        writeFile file: "releases", text: "\r\n${version}.${env.BUILD_ID}"
                         sh (" git add -A")
                         sh (" git commit -am 'Updated version number to ${version}.${env.BUILD_ID}'")
                         sh (' ls -l ')
