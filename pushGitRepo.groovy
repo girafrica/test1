@@ -84,7 +84,7 @@ pipeline {
                         //     sh (' git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags HEAD:main')
                         // }
 
-                        dir ('savetag2'){
+                        dir ('savetag'){
                             cloneToLocation("https://github.com/girafrica/release-tags", 'github-app')
                             //def readContent = "${version}.${newtag}"
                             writeFile file: "${version}.${newtag}"
