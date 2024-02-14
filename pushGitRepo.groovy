@@ -18,8 +18,7 @@ pipeline {
       steps {
         sh '''
         echo $JENKINS_HOME
-        cd $JENKINS_HOME/scripts
-        ./0_db_show_available.sh $DBlike $AWS_PROFILE $DATEFILTER > $JENKINS_HOME/scripts/lista.txt
+        echo "2023" > $JENKINS_HOME/scripts/lista.txt
         echo "Show available date"
         cat $JENKINS_HOME/scripts/lista.txt
         '''
