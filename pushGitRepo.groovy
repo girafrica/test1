@@ -39,7 +39,7 @@ pipeline {
                     currentDateTime = sh script: """date +"v%Y.%V" """.trim(), returnStdout: true
                     def lt = currentDateTime.trim()  // the .trim() is necessary
 
-                    version = ${lt}'.'${env.BUILD_ID}
+                    echo ${lt}'.'${env.BUILD_ID}
                     echo version
                     createTag(version)
                 }
