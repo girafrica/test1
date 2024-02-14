@@ -34,12 +34,14 @@ pipeline {
             steps {
                 script {
                     int x = 1;
-  
+                    sh (' ls -l ')
                     //lastTag = sh script: """git tag --sort=-version:refname | head -1 | grep -oE '[0-9]+\044'""".trim(), returnStdout: true
                     //withCredentials([usernamePassword(credentialsId: 'github-app', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                        dir ('savetag'){    
+                        dir ('savetag'){   
+                            sh (' ls -l ') 
                             cloneToLocation("https://github.com/girafrica/release-tags", 'github-app')
                             //sh (' git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags ')
+                            sh (' ls -l ')
                             lastTag = sh script: """ls -t | head -1 | grep -oE '[0-9]+\044'""".trim(), returnStdout: true
                             sh (' ls -l ')
                             deleteDir()
