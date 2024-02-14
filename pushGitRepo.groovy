@@ -1,11 +1,45 @@
 import java.text.SimpleDateFormat
 library 'shared'
+def choiceArray = []
 
 pipeline {
     agent any
+    parameters {
+        string defaultValue: '', description: 'PATH_to_scripts', name: 'SCRIPTPATH', trim: false
+        string defaultValue: '', description: 'Optional parameters', name: 'MOREparams', trim: false
+    }
     options {
         skipDefaultCheckout()
     }
+
+     stages {
+    stage('show available date') {
+      steps {
+        sh '''
+        echo $JENKINS_HOME
+        cd $JENKINS_HOME/scripts
+        ./0_db_show_available.sh $DBlike $AWS_PROFILE $DATEFILTER > $JENKINS_HOME/scripts/lista.txt
+        echo "Show available date"
+        cat $JENKINS_HOME/scripts/lista.txt
+        '''
+      }
+    }
+   stage('Restore') {
+        steps {
+            script {
+              def folders = sh(returnStdout: true, script: "cat $JENKINS_HOME/scripts/lista.txt")    
+              //load the array using the file content (lista.txt)
+                folders.split().each {
+                    choiceArray << it
+                }                  
+                // wait for user input 
+              def INPUT_DATE = input message: 'Please select date', ok: 'Next',
+              //generate the list using the array content
+              parameters: [ choice(name: 'CHOICES', choices: choiceArray, description: 'Please Select One') ]
+            }
+        }
+    }
+ }
     stages {  
 
         // stage('List tags') {
