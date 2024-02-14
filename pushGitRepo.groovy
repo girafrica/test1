@@ -76,7 +76,7 @@ pipeline {
 
                         writeFile file: 'releases', text: readContent+'\r\n${version}.${env.BUILD_ID}'
                         sh (' git add -A')
-                        sh (' git commit -am 'Updated version number to ${version}.${env.BUILD_ID}'')
+                        sh (' git commit -am "Updated version number to ${version}.${env.BUILD_ID}"')
                         sh (' git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags HEAD:main')
                     }
                 }
