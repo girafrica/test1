@@ -4,10 +4,6 @@ def choiceArray = []
 
 pipeline {
     agent any
-    parameters {
-        string defaultValue: '', description: 'PATH_to_scripts', name: 'SCRIPTPATH', trim: false
-        string defaultValue: '', description: 'Optional parameters', name: 'MOREparams', trim: false
-    }
     options {
         skipDefaultCheckout()
     }
@@ -18,7 +14,7 @@ pipeline {
       steps {
         sh '''
         echo $JENKINS_HOME
-        echo "2023" > $JENKINS_HOME/workspace/tag/test/lista.txt
+        echo "2023\r\n2024" > $JENKINS_HOME/workspace/tag/test/lista.txt
         echo "Show available date"
         cat $JENKINS_HOME/workspace/tag/test/lista.txt
         '''
