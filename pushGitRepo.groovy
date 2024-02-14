@@ -65,8 +65,6 @@ pipeline {
                         // def newtag = "${env.BUILD_ID}"
                         // tag = newtag.toString()
 
-                        // echo tag 
-
                         if (!fileExists('releases')) {
                             writeFile file: 'releases', text: "Releases:"
                         }
