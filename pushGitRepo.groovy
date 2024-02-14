@@ -84,9 +84,9 @@ pipeline {
                         dir ('savetag'){
                             cloneToLocation("https://github.com/girafrica/release-tags", 'github-app')
                             //def readContent = "${version}.${newtag}"
-                            writeFile file: "${version}.${newtag}"
+                            writeFile file: "${version}.${env.BUILD_ID}"
                             sh (" git add -A")
-                            sh (" git commit -am 'Updated version number to ${version}.${newtag}'")
+                            sh (" git commit -am 'Updated version number to ${version}.${env.BUILD_ID}'")
                             sh (' ls -l ')
                             sh (' git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags HEAD:main')
                         }
