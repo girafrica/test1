@@ -37,10 +37,7 @@ pipeline {
             steps {
                 script {
                     currentDateTime = sh script: """date +"v%Y.%V" """.trim(), returnStdout: true
-                    def lt = currentDateTime.trim()  // the .trim() is necessary
-
-                    echo ${lt}'.'${env.BUILD_ID}
-                    echo version
+                    version = currentDateTime.trim()  // the .trim() is necessary
                     createTag(version)
                 }
             }
@@ -50,7 +47,7 @@ pipeline {
             steps {
                 script {
 
-                    //saveTag(version)
+                    saveTag(version)
 
                     withCredentials([usernamePassword(credentialsId: 'github-app', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         // dir ('foo'){
