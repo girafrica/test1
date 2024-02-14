@@ -53,7 +53,7 @@ pipeline {
                     // echo "lastTag: " + lt
                     // int lt = lt.toInteger()
 
-                    newtag = ${env.BUILD_ID}
+                    newtag = "1.0.${env.BUILD_ID}"
 
                     echo newtag.toString()
                 }
