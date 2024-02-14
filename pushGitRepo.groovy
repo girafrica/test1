@@ -23,7 +23,6 @@ pipeline {
                 script {
                     currentDateTime = sh script: """date +"v%Y.%V" """.trim(), returnStdout: true
                     version = currentDateTime.trim()  // the .trim() is necessary
-                    echo "New version: " + version
                 }
             }
         }    
