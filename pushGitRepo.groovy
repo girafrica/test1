@@ -48,7 +48,7 @@ pipeline {
                     echo "lastTag: " + lt
                     int lt = lt.toInteger()
 
-                    newtag = lt + x
+                    newtag = "${env.BUILD_ID}"
 
                     echo newtag.toString()
                 }
