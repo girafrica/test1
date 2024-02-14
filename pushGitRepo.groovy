@@ -83,7 +83,8 @@ pipeline {
 
                         cloneToLocation("https://github.com/girafrica/release-tags", 'github-app')
                         //def readContent = "${version}.${newtag}"
-                        newtag = "${env.BUILD_ID}"
+                        def newtag = "${env.BUILD_ID}"
+                        echo newtag
                         writeFile file: "${version}.${newtag}"
                         // sh (" git add -A")
                         // sh (" git commit -am 'Updated version number to ${version}.${env.BUILD_ID}'")
