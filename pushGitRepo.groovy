@@ -21,11 +21,9 @@ pipeline {
         stage('Create version') {
             steps {
                 script {
-                    currentDateTime = sh script: """
-                        date +"v%Y.%V"
-                        """.trim(), returnStdout: true
+                    currentDateTime = sh script: """date +"v%Y.%V" """.trim(), returnStdout: true
                     version = currentDateTime.trim()  // the .trim() is necessary
-                    echo "version: " + version
+                    echo "New version: " + version
                 }
             }
         }    
@@ -67,7 +65,6 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'github-app', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                        sh (' ls -l ')
                         // dir ('foo'){
                         //     sh (' ls -l ')
                         //     //sh (' git config --global pull.rebase false ')
@@ -91,13 +88,12 @@ pipeline {
                         if (!fileExists('releases')) {
                             writeFile file: 'releases', text: "Releases:"
                         }
-                        
+
                         def readContent = readFile 'releases'
 
                         writeFile file: 'releases', text: readContent+"\r\n${version}.${env.BUILD_ID}"
                         sh (" git add -A")
                         sh (" git commit -am 'Updated version number to ${version}.${env.BUILD_ID}'")
-                        sh (' ls -l ')
                         sh (' git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags HEAD:main')
                     }
                 }
