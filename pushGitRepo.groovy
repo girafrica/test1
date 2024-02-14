@@ -87,8 +87,11 @@ pipeline {
                         // tag = newtag.toString()
 
                         // echo tag 
-                        writeFile file: 'releases', text: readContent+"Releases:"
 
+                        if (!fileExists('releases')) {
+                            writeFile file: 'releases', text: "Releases:"
+                        }
+                        
                         def readContent = readFile 'releases'
 
                         writeFile file: 'releases', text: readContent+"\r\n${version}.${env.BUILD_ID}"
