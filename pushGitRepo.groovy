@@ -85,6 +85,9 @@ pipeline {
                         //def readContent = "${version}.${newtag}"
                         def newtag = "${env.BUILD_ID}"
                         tag = newtag.toString()
+
+                        echo tag 
+                        
                         writeFile file: "${tag}"
                         // sh (" git add -A")
                         // sh (" git commit -am 'Updated version number to ${version}.${env.BUILD_ID}'")
