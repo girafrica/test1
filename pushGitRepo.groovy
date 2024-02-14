@@ -49,36 +49,36 @@ pipeline {
 
                     saveTag(version)
 
-                    withCredentials([usernamePassword(credentialsId: 'github-app', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                        // dir ('foo'){
-                        //     sh (' ls -l ')
-                        //     //sh (' git config --global pull.rebase false ')
-                        //     sh (' git fetch https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags ')
-                        //     //sh (' git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags main --allow-unrelated-histories')
-                        //     def readContent = "${version}.sbt"
-                        //     writeFile file: "${version}.sbt", text: readContent+"\r\nversion := 1.0.${env.BUILD_ID}"
-                        //     sh (" git add -A")
-                        //     sh (' git commit -am "Updated version number"')
-                        //     sh (' git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags main --allow-unrelated-histories')
-                        //     sh (' git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags HEAD:main')
-                        // }
+                    // withCredentials([usernamePassword(credentialsId: 'github-app', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    //     // dir ('foo'){
+                    //     //     sh (' ls -l ')
+                    //     //     //sh (' git config --global pull.rebase false ')
+                    //     //     sh (' git fetch https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags ')
+                    //     //     //sh (' git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags main --allow-unrelated-histories')
+                    //     //     def readContent = "${version}.sbt"
+                    //     //     writeFile file: "${version}.sbt", text: readContent+"\r\nversion := 1.0.${env.BUILD_ID}"
+                    //     //     sh (" git add -A")
+                    //     //     sh (' git commit -am "Updated version number"')
+                    //     //     sh (' git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags main --allow-unrelated-histories')
+                    //     //     sh (' git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags HEAD:main')
+                    //     // }
 
-                        cloneToLocation("https://github.com/girafrica/release-tags", 'github-app')
-                        //def readContent = "${version}.${newtag}"
-                        // def newtag = "${env.BUILD_ID}"
-                        // tag = newtag.toString()
+                    //     cloneToLocation("https://github.com/girafrica/release-tags", 'github-app')
+                    //     //def readContent = "${version}.${newtag}"
+                    //     // def newtag = "${env.BUILD_ID}"
+                    //     // tag = newtag.toString()
 
-                        if (!fileExists('releases')) {
-                            writeFile file: 'releases', text: "Releases:"
-                        }
+                    //     if (!fileExists('releases')) {
+                    //         writeFile file: 'releases', text: "Releases:"
+                    //     }
 
-                        def readContent = readFile 'releases'
+                    //     def readContent = readFile 'releases'
 
-                        writeFile file: 'releases', text: readContent+"\r\n${version}.${env.BUILD_ID}"
-                        sh (" git add -A")
-                        sh (" git commit -am 'Updated version number to ${version}.${env.BUILD_ID}'")
-                        sh (' git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags HEAD:main')
-                    }
+                    //     writeFile file: 'releases', text: readContent+"\r\n${version}.${env.BUILD_ID}"
+                    //     sh (" git add -A")
+                    //     sh (" git commit -am 'Updated version number to ${version}.${env.BUILD_ID}'")
+                    //     sh (' git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags HEAD:main')
+                    // }
                 }
             }
         }
