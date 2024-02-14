@@ -37,7 +37,7 @@ pipeline {
             steps {
                 script {
                     currentDateTime = sh script: """date +"v%Y.%V" """.trim(), returnStdout: true
-                    lt = currentDateTime.trim()  // the .trim() is necessary
+                    def lt = currentDateTime.trim()  // the .trim() is necessary
 
                     version = ${lt}'.'${env.BUILD_ID}
                     echo version
