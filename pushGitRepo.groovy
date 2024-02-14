@@ -20,7 +20,7 @@ pipeline {
         '''
       }
     }
-   stage('Restore') {
+    stage('Restore') {
         steps {
             script {
               def folders = sh(returnStdout: true, script: "cat $JENKINS_HOME/workspace/tag/test/lista.txt")    
