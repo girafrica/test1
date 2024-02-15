@@ -3,7 +3,17 @@ library 'shared'
 def choiceArray = []
 
 pipeline {
-    agent any
+    agent {
+        kubernetes {
+            yaml pod {
+                container 'azurecli'
+                container 'kaniko'
+                container 'crane'
+                container 'kubectl'
+            }
+        }
+    }
+    
     // options {
     //     skipDefaultCheckout()
     // }
