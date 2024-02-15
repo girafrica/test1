@@ -9,32 +9,33 @@ pipeline {
     }
 
     
-    stages {  
-        stage('show available date') {
-      steps {
-        sh '''
-        echo $JENKINS_HOME
-        echo "2023\r\n2024" > $JENKINS_HOME/workspace/tag/test/lista.txt
-        echo "Show available date"
-        cat $JENKINS_HOME/workspace/tag/test/lista.txt
-        '''
-      }
-    }
-    stage('Restore') {
-        steps {
-            script {
-              def folders = sh(returnStdout: true, script: "cat $JENKINS_HOME/workspace/tag/test/lista.txt")    
-              //load the array using the file content (lista.txt)
-                folders.split().each {
-                    choiceArray << it
-                }                  
-                // wait for user input 
-              def INPUT_DATE = input message: 'Please select date', ok: 'Next',
-              //generate the list using the array content
-              parameters: [ choice(name: 'CHOICES', choices: choiceArray, description: 'Please Select One') ]
-            }
-        }
-    }    
+        // stages {  
+        //     stage('show available date') {
+        //   steps {
+        //     sh '''
+        //     echo $JENKINS_HOME
+        //     echo "2023\r\n2024" > $JENKINS_HOME/workspace/tag/test/lista.txt
+        //     echo "Show available date"
+        //     cat $JENKINS_HOME/workspace/tag/test/lista.txt
+        //     '''
+        //   }
+        // }
+        // stage('Restore') {
+        //     steps {
+        //         script {
+        //           def folders = sh(returnStdout: true, script: "cat $JENKINS_HOME/workspace/tag/test/lista.txt")    
+        //           //load the array using the file content (lista.txt)
+        //             folders.split().each {
+        //                 choiceArray << it
+        //             }                  
+        //             // wait for user input 
+        //           def INPUT_DATE = input message: 'Please select date', ok: 'Next',
+        //           //generate the list using the array content
+        //           parameters: [ choice(name: 'CHOICES', choices: choiceArray, description: 'Please Select One') ]
+        //         }
+        //     }
+        // }
+
         // stage('List tags') {
         //     steps {
         //         script {
@@ -65,6 +66,8 @@ pipeline {
                 script {
                     currentDateTime = sh script: """date +"v%Y.%V" """.trim(), returnStdout: true
                     version = currentDateTime.trim()  // the .trim() is necessary
+                    cloneToLocation('https://github.com/girafrica/release-management', 'github-app', 'main', 'release')
+
                     createTag(version)
                 }
             }

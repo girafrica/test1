@@ -1,3 +1,4 @@
+library 'shared'
 def map = [
         Bob  : 42,
         Alice: 54,
@@ -6,20 +7,39 @@ def map = [
 
 pipeline {
     agent any
+    options {
+        skipDefaultCheckout()
+    }
 
     stages {
-        stage('Initialize') {
-            steps {
-                script {
-                    map.each { entry ->
-                        stage (entry.key) {
-                            timestamps{
-                                echo "$entry.value"
-                            }
-                        }
-                    }
+    
+        map.each { entry ->
+
+
+            stage('Checkout 1') {
+                steps {
+                    echo "Checkout 1"
                 }
             }
+        
+            stage('Checkout 2') {
+                steps {
+                    echo "Checkout 2"
+                }
+            }    
+        
+            stage('Checkout 3') {
+                steps {
+                    echo "Checkout 3"
+                }
+            }    
         }
+    
+    
+    
     }
+
+
+
+
 }
