@@ -9,7 +9,7 @@ pipeline {
     }
 
     
-        // stages {  
+    stages {  
         //     stage('show available date') {
         //   steps {
         //     sh '''
