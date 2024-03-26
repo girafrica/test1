@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
     inputs:
       branch:
-        description: 'Define branch name/tag/SHA'     
+        description: 'Define branch name, tag or SHA commit'     
         required: true
         default: 'main'
     
